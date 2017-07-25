@@ -4,11 +4,12 @@
  * @flow
  */
 import React, {Component} from 'react';
+import * as utils from './../../utils/util'
 import {
     AppRegistry,
+    View,
     Text,
     StyleSheet,
-    Dimensions,
     TouchableOpacity
 } from 'react-native';
 
@@ -40,32 +41,39 @@ export default class XButton extends Component {
     }
 
     render() {
-        const {marginTop,bgColor} = this.props;
+        const {marginTop,bgColor,borderBtn} = this.props;
         return (
-            <TouchableOpacity
-                onPress={this.props.onClick}
-                disabled={this.state.disabled}
-                style={[styles.button , { marginTop: marginTop , backgroundColor: bgColor || '#3077d1' } , this.state.disabled && styles.disabled ]}
-            >
-                <Text style={styles.buttonText}>
-                    {this.props.text || '确定'}
-                </Text>
-            </TouchableOpacity>
+            <View style={styles.buttonBox}>
+                <TouchableOpacity
+                    onPress={this.props.onClick}
+                    disabled={this.state.disabled}
+                    style={[styles.button , { marginTop: marginTop , backgroundColor: bgColor || '#7fd2c5' } , this.state.disabled && styles.disabled ]}
+                >
+                    <Text style={styles.buttonText}>
+                        {this.props.text || '确定'}
+                    </Text>
+                </TouchableOpacity>
+            </View>
         );
     }
 }
 
 let styles = StyleSheet.create({
+    buttonBox: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+    },
     button: {
         flexDirection: 'row',
         justifyContent: 'center',
-        width:Dimensions.get('window').width - 60,
-        marginLeft: 30,
-        padding: 10,
+        width:utils.computeSize(560),
+        paddingTop: utils.computeSize(25),
+        paddingBottom: utils.computeSize(25),
         borderRadius: 3
     },
     buttonText: {
-        color: '#ffff'
+        color: '#ffff',
+        fontSize: utils.computeSize(34),
     },
     disabled: {
         backgroundColor: 'gray'

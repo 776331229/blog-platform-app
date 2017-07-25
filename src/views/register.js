@@ -13,12 +13,11 @@ import Login from './login'
 import config from './../utils/config'
 import http from './../utils/http'
 import TextInput from './../components/XTextInput'
+import * as utils from './../utils/util'
 import {
     AppRegistry,
     View,
-    Image,
-    Dimensions,
-    TouchableOpacity
+    Image
 } from 'react-native';
 
 export default class Register extends Component {
@@ -133,22 +132,30 @@ export default class Register extends Component {
                 <View style={styles.iconBox}>
                     <Image
                         style={styles.logoIcon}
-                        source={{uri: 'https://gold-cdn.xitu.io/v3/static/img/zhuanlan.18265c6.png'}}
+                        source={require('./../assets/icons/logo_img.png')}
                     ></Image>
                 </View>
                 <View style={styles.inputBox}>
-                    <View style={styles.borderInput}>
+                    <View style={styles.userInputBox}>
+                        <Image
+                            style={styles.userIcon}
+                            source={require('./../assets/icons/login/login_user_icon.png')}
+                        ></Image>
                         <TextInput
-                            style={{height: 40}}
+                            style={styles.userInput}
                             value={this.state.username}
                             placeholder="请输入用户名"
                             placeholderTextColor="#ccc"
                             onChangeText={(text) => this.setState({username:text})}
                         />
                     </View>
-                    <View style={styles.borderInput}>
+                    <View style={styles.passInputBox}>
+                        <Image
+                            style={styles.passIcon}
+                            source={require('./../assets/icons/login/login_pass_icon.png')}
+                        ></Image>
                         <TextInput
-                            style={{height: 40}}
+                            style={styles.passInput}
                             value={this.state.password}
                             secureTextEntry={this.state.passType}
                             placeholder="请输入密码"
@@ -157,13 +164,18 @@ export default class Register extends Component {
                         />
                         <Icons
                             name={this.state.passType ? 'ios-eye-outline' : 'ios-eye'}
+                            color={config.theme.skinColor}
                             onPress={() => this.setState({passType:!this.state.passType})}
                             style={styles.passEye}
                         />
                     </View>
-                    <View style={styles.borderInput}>
+                    <View style={styles.passInputBox}>
+                        <Image
+                            style={styles.passIcon}
+                            source={require('./../assets/icons/login/login_pass_icon.png')}
+                        ></Image>
                         <TextInput
-                            style={{height: 40}}
+                            style={styles.passInput}
                             value={this.state.confirmPassword}
                             secureTextEntry={this.state.passType}
                             placeholder="请输入确认密码密码"
@@ -171,18 +183,26 @@ export default class Register extends Component {
                             onChangeText={(text) => this.setState({confirmPassword:text})}
                         />
                     </View>
-                    <View style={styles.borderInput}>
+                    <View style={styles.passInputBox}>
+                        <Image
+                            style={styles.passIcon}
+                            source={require('./../assets/icons/login/login_pass_icon.png')}
+                        ></Image>
                         <TextInput
-                            style={{height: 40}}
+                            style={styles.passInput}
                             value={this.state.nickName}
                             placeholder="请输入昵称"
                             placeholderTextColor="#ccc"
                             onChangeText={(text) => this.setState({nickName:text})}
                         />
                     </View>
-                    <View style={styles.borderInput}>
+                    <View style={styles.passInputBox}>
+                        <Image
+                            style={styles.passIcon}
+                            source={require('./../assets/icons/login/login_pass_icon.png')}
+                        ></Image>
                         <TextInput
-                            style={{height: 40}}
+                            style={styles.passInput}
                             value={this.state.phone}
                             placeholder="请输入手机号码"
                             placeholderTextColor="#ccc"
@@ -190,9 +210,13 @@ export default class Register extends Component {
                             onChangeText={(text) => this.setState({phone:text})}
                         />
                     </View>
-                    <View style={styles.borderInput}>
+                    <View style={styles.passInputBox}>
+                        <Image
+                            style={styles.passIcon}
+                            source={require('./../assets/icons/login/login_pass_icon.png')}
+                        ></Image>
                         <TextInput
-                            style={{height: 40}}
+                            style={styles.passInput}
                             value={this.state.email}
                             placeholder="请输入邮箱地址"
                             placeholderTextColor="#ccc"
@@ -200,9 +224,13 @@ export default class Register extends Component {
                             onChangeText={(text) => this.setState({email:text})}
                         />
                     </View>
-                    <View style={styles.borderInput}>
+                    <View style={styles.passInputBox}>
+                        <Image
+                            style={styles.passIcon}
+                            source={require('./../assets/icons/login/login_pass_icon.png')}
+                        ></Image>
                         <TextInput
-                            style={{height: 40}}
+                            style={styles.passInput}
                             value={this.state.address}
                             placeholder="请输入地址"
                             placeholderTextColor="#ccc"
@@ -222,40 +250,63 @@ export default class Register extends Component {
 }
 
 let styles = {
-    container: {
-        flex: 1,
-        paddingTop: 20,
-        backgroundColor: '#f7f7f7'
-    },
     iconBox : {
         flexDirection: 'row',
         justifyContent: 'center',
-        marginTop: Dimensions.get('window').width / 7
+        marginTop: utils.computeSize(233),
     },
     logoIcon : {
-        width: Dimensions.get('window').width / 7,
-        height: Dimensions.get('window').width / 7,
-        justifyContent: 'center',
+        width: utils.computeSize(182),
+        height: utils.computeSize(182)
     },
     inputBox : {
-        marginTop: Dimensions.get('window').width / 8,
-        paddingLeft: 30,
-        borderColor: '#eee',
-        borderWidth: 1,
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems:'center',
+        marginTop: utils.computeSize(50),
     },
-    borderInput:{
-        height: 40,
+    userInputBox:{
+        width: utils.computeSize(560),
+        height: utils.computeSize(65),
+        borderColor: '#eee',
+        borderBottomWidth: 1,
+    },
+    userIcon: {
+        position: 'absolute',
+        left: 0,
+        bottom: utils.computeSize(10),
+        width: utils.computeSize(39),
+        height: utils.computeSize(39)
+    },
+    userInput: {
+        height: utils.computeSize(65),
+        paddingLeft: utils.computeSize(87),
+        fontSize: utils.computeSize(28),
+    },
+    passInputBox:{
+        width: utils.computeSize(560),
+        height: utils.computeSize(65),
+        marginTop: utils.computeSize(22),
         borderColor: '#eee',
         borderBottomWidth: 1
     },
-    passInput:{
-        height: 40,
+    passIcon: {
+        position: 'absolute',
+        left: 0,
+        bottom: utils.computeSize(10),
+        width: utils.computeSize(39),
+        height: utils.computeSize(39)
+    },
+    passInput: {
+        height: utils.computeSize(65),
+        paddingLeft: utils.computeSize(87),
+        fontSize: utils.computeSize(28),
     },
     passEye: {
         position: 'absolute',
-        right: 30,
-        top: 10,
-        fontSize: 20
+        right: 0,
+        bottom: utils.computeSize(5),
+        fontSize: utils.computeSize(40),
     },
 }
 

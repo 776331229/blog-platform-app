@@ -13,12 +13,12 @@ import Register from './register'
 import Toast, {DURATION} from 'react-native-easy-toast'
 import config from './../utils/config'
 import http from './../utils/http'
+import * as utils from './../utils/util'
 import {
     AppRegistry,
     View,
     Image,
     Text,
-    Dimensions,
     TouchableOpacity
 } from 'react-native';
 
@@ -117,22 +117,30 @@ export default class Login extends Component {
                 <View style={styles.iconBox}>
                     <Image
                         style={styles.logoIcon}
-                        source={{uri: 'https://gold-cdn.xitu.io/v3/static/img/zhuanlan.18265c6.png'}}
+                        source={require('./../assets/icons/logo_img.png')}
                     ></Image>
                 </View>
                 <View style={styles.inputBox}>
-                    <View style={styles.userInput}>
+                    <View style={styles.userInputBox}>
+                        <Image
+                            style={styles.userIcon}
+                            source={require('./../assets/icons/login/login_user_icon.png')}
+                        ></Image>
                         <TextInput
-                            style={{height: 40}}
+                            style={styles.userInput}
                             value={this.state.username}
                             placeholder="请输入用户名"
                             placeholderTextColor="#ccc"
                             onChangeText={(text) => this.setState({username:text})}
                         />
                     </View>
-                    <View style={styles.passInput}>
+                    <View style={styles.passInputBox}>
+                        <Image
+                            style={styles.passIcon}
+                            source={require('./../assets/icons/login/login_pass_icon.png')}
+                        ></Image>
                         <TextInput
-                            style={{height: 40}}
+                            style={styles.passInput}
                             value={this.state.password}
                             secureTextEntry={this.state.passType}
                             placeholder="请输入密码"
@@ -141,6 +149,7 @@ export default class Login extends Component {
                         />
                         <Icons
                             name={this.state.passType ? 'ios-eye-outline' : 'ios-eye'}
+                            color={config.theme.skinColor}
                             onPress={() => this.setState({passType:!this.state.passType})}
                             style={styles.passEye}
                         />
@@ -150,20 +159,20 @@ export default class Login extends Component {
                 <XButton
                     onClick={this._login.bind(this)}
                     text="登录"
-                    marginTop={40}
+                    marginTop={utils.computeSize(50)}
                 />
 
                 <View style={styles.operationBox}>
                     <TouchableOpacity
                         onPress={this._register.bind(this)}
                     >
-                        <Text style={{color: '#ccc'}}>忘记密码?</Text>
+                        <Text style={{color:'#ccc',fontSize: utils.computeSize(26)}}>忘记密码?</Text>
                     </TouchableOpacity>
 
                     <TouchableOpacity
                         onPress={this._register.bind(this)}
                     >
-                        <Text style={{color: '#3077d1'}}>快速注册</Text>
+                        <Text style={{color:config.theme.skinColor,fontSize: utils.computeSize(26)}}>快速注册</Text>
                     </TouchableOpacity>
                 </View>
 
@@ -176,44 +185,72 @@ let styles = {
     container: {
         flex: 1,
         paddingTop: 20,
-        backgroundColor: '#f7f7f7'
+        backgroundColor: config.theme.bgColor
     },
     iconBox : {
         flexDirection: 'row',
         justifyContent: 'center',
-        marginTop: Dimensions.get('window').width / 7
+        marginTop: utils.computeSize(233),
     },
     logoIcon : {
-        width: Dimensions.get('window').width / 7,
-        height: Dimensions.get('window').width / 7,
-        justifyContent: 'center',
+        width: utils.computeSize(182),
+        height: utils.computeSize(182)
     },
     inputBox : {
-        marginTop: Dimensions.get('window').width / 8,
-        paddingLeft: 30,
-        borderColor: '#eee',
-        borderWidth: 1,
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems:'center',
+        marginTop: utils.computeSize(50),
     },
-    userInput:{
-        height: 40,
+    userInputBox:{
+        width: utils.computeSize(560),
+        height: utils.computeSize(65),
+        borderColor: '#eee',
+        borderBottomWidth: 1,
+    },
+    userIcon: {
+        position: 'absolute',
+        left: 0,
+        bottom: utils.computeSize(10),
+        width: utils.computeSize(39),
+        height: utils.computeSize(39)
+    },
+    userInput: {
+        height: utils.computeSize(65),
+        paddingLeft: utils.computeSize(87),
+        fontSize: utils.computeSize(28),
+    },
+    passInputBox:{
+        width: utils.computeSize(560),
+        height: utils.computeSize(65),
+        marginTop: utils.computeSize(22),
         borderColor: '#eee',
         borderBottomWidth: 1
     },
-    passInput:{
-        height: 40,
+    passIcon: {
+        position: 'absolute',
+        left: 0,
+        bottom: utils.computeSize(10),
+        width: utils.computeSize(39),
+        height: utils.computeSize(39)
+    },
+    passInput: {
+        height: utils.computeSize(65),
+        paddingLeft: utils.computeSize(87),
+        fontSize: utils.computeSize(28),
     },
     passEye: {
         position: 'absolute',
-        right: 30,
-        top: 10,
-        fontSize: 20
+        right: 0,
+        bottom: utils.computeSize(5),
+        fontSize: utils.computeSize(40),
     },
     operationBox: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        width:Dimensions.get('window').width - 60,
-        marginLeft: 30,
-        marginTop: 20
+        width: utils.computeSize(560),
+        marginLeft: utils.computeSize(96),
+        marginTop: utils.computeSize(30),
     }
 }
 
